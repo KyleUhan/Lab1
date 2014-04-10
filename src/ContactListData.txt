@@ -4,13 +4,13 @@ Uhan
 Milwaukee
 WI
 55555
-Jane 
+Jane
 Smith
 555 Road rd.
 Madison
 WI
 55555
-John 
+John
 Smith
 555 Lane ln
 Kenosha
@@ -22,7 +22,7 @@ TwoTone
 Detroit
 MI
 55555
-John 
+John
 Smith
 555 Lane ln
 Kenosha

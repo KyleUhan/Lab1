@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class FileManager {
 
-    private final static int RECORD_SIZE = 6;
+    private static int RECORD_SIZE = 6;
     private List<String> fileContent;
 
     private File file = new File("src" + File.separatorChar + "ContactListData.txt");
@@ -64,8 +64,14 @@ public class FileManager {
         this.fileContent = fileContent;
     }
 
-    public static int getRECORD_SIZE() {
+    public final static int getRECORD_SIZE() {
         return RECORD_SIZE;
     }
+
+    public final void setRECORD_SIZE(final int RECORD_SIZE) {
+        FileManager.RECORD_SIZE = RECORD_SIZE;
+    }
+    
+    
 
 }
