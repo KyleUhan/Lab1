@@ -6,8 +6,10 @@
 package lab1;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -15,31 +17,34 @@ import java.util.Objects;
  */
 public class CommaSeparatorFormat implements FormatStrategy {
 
-    private FileManager file;
+    private final static String CHARCTER_TO_ADD = ",";
+    private final static int ZERO_VALUE = 0;
+    private FileReaderStrategy file;
 
-    public CommaSeparatorFormat(final FileManager file) {
+    public CommaSeparatorFormat(final FileReaderStrategy file) {
         setFile(file);
     }
 
-    public final FileManager getFile() {
+    public final FileReaderStrategy getFile() {
         return file;
     }
 
-    public final void setFile(final FileManager file) {
+    public final void setFile(final FileReaderStrategy file) {
         this.file = file;
     }
 
     @Override
     public List<String> getFormattedList() {
         List<String> formattedList = new ArrayList<>();
-        int count = 0;
+        int count = ZERO_VALUE;
         int recordBreakNum;
         String quickFormatter = "";
         for (String s : getFile().getFileContent()) {
             count++;
-            quickFormatter += s + ",";
-            recordBreakNum = count % FileManager.getRECORD_SIZE();
-            if (recordBreakNum == 0) {
+            s = s.trim();
+            quickFormatter += s + CHARCTER_TO_ADD;
+            recordBreakNum = count % getFile().getRecordSize();
+            if (recordBreakNum == ZERO_VALUE) {
                 formattedList.add(quickFormatter);
                 quickFormatter = "";
             }
@@ -73,6 +78,27 @@ public class CommaSeparatorFormat implements FormatStrategy {
     @Override
     public String toString() {
         return "CommaSeparatorFormat{" + "file=" + file + '}';
+    }
+
+    @Override
+    public final List<Object> getAsObjectList() {
+        List<Object> eachUnitArray = new ArrayList<>();
+        for (String s : getFormattedList()) {
+            String[] UnitInRecordArray = s.split("\\,");
+            List<Object> objArray = new ArrayList<>();
+            for (int i = 0; i < getFile().getRecordSize(); i++) {
+                objArray.add(UnitInRecordArray[i]);
+            }
+            eachUnitArray.add(objArray);
+        }
+        return eachUnitArray;
+    }
+
+    @Override
+    public final List<Object> getStrictObjectList() {
+        Set<Object> tempSet = new HashSet<>(getAsObjectList());
+        List<Object> tempList = new ArrayList<>(tempSet);
+        return tempList;
     }
 
 }

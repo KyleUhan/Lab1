@@ -2,7 +2,9 @@ package lab1;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -12,24 +14,26 @@ public class Lab1_StartUp {
 
     public static void main(String[] args) throws IOException {
 
-        FileManager fm = new FileManager();
-        FormatStrategy pipeFormat = new PipeSeparatorFormat(fm);
+        FileReaderStrategy fr = new ReadFromTextFile(6);
+        FormatStrategy format = new PipeSeparatorFormat(fr);
 
-//        for (String s : pipeFormat.getFormattedList()) {
-//            System.out.println(s);
-//        }
-
-        List<Contact> mailingList = new ArrayList<>();
-
-        for (String s : pipeFormat.getFormattedList()) {
-            String[] array = s.split("\\|");
-            //  u.add(array);
-            Contact c = new Contact(array[0], array[1], array[2], array[3], array[4], array[5]);
-            mailingList.add(c);
+//      Shows formatted list
+        for (String s : format.getFormattedList()) {
+            System.out.println(s);
         }
 
-        for (Contact c : mailingList) {
-            System.out.println(c.toString());
+        System.out.println("");
+
+        //Returns as Objects
+        for (Object o : format.getAsObjectList()) {
+            System.out.println(o.toString());
+        }
+
+        System.out.println("");
+        //Strict removes duplicates
+        for (Object o : format.getStrictObjectList()) {
+            System.out.println(o.toString());
+
         }
 
     }
