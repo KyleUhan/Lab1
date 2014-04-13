@@ -54,6 +54,11 @@ public class CommaSeparatorFormat implements FormatStrategy {
     }
 
     @Override
+    public String getCharacterUsed() {
+        return CHARCTER_TO_ADD;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + Objects.hashCode(this.file);

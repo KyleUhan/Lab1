@@ -77,6 +77,11 @@ public class PipeSeparatorFormat implements FormatStrategy {
     }
 
     @Override
+    public String getCharacterUsed() {
+        return CHARCTER_TO_ADD;
+    }
+
+    @Override
     public String toString() {
         return "PipeSeparatorFormat{" + "file=" + file + '}';
     }

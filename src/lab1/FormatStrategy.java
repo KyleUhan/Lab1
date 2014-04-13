@@ -18,5 +18,7 @@ public interface FormatStrategy {
     public abstract List<Object> getAsObjectList();
     
     public abstract List<Object> getStrictObjectList();
+    
+    public abstract String getCharacterUsed();
 
 }
