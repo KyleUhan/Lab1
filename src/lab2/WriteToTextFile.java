@@ -1,9 +1,10 @@
-package lab1;
+package lab2;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 /**
  *
@@ -77,6 +78,11 @@ public class WriteToTextFile implements FileWriterStrategy {
             }
         }
         getFile().close();
+    }
+
+    @Override
+    public Map<String, Object> getMap(FormatStrategy format) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

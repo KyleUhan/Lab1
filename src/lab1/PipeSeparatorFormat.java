@@ -18,11 +18,11 @@ import java.util.Set;
 public class PipeSeparatorFormat implements FormatStrategy {
 
     private final static String CHARCTER_TO_ADD = "|";
+    private final static String DOUBLE_SLASH = "\\";
     private final static int ZERO_VALUE = 0;
-    //Update with Strategy
     private FileReaderStrategy file;
 
-    public PipeSeparatorFormat(final FileReaderStrategy file) {
+    public PipeSeparatorFormat(final FileReaderStrategy file) throws NullPointerException {
         setFile(file);
     }
 
@@ -30,7 +30,10 @@ public class PipeSeparatorFormat implements FormatStrategy {
         return file;
     }
 
-    public final void setFile(final FileReaderStrategy file) {
+    public final void setFile(final FileReaderStrategy file) throws NullPointerException {
+        if (file == null) {
+            throw new NullPointerException("Formatter must not be null.");
+        }
         this.file = file;
     }
 
@@ -52,6 +55,27 @@ public class PipeSeparatorFormat implements FormatStrategy {
         }
 
         return formattedList;
+    }
+
+    @Override
+    public final List<Object> getAsObjectList() {
+        List<Object> eachUnitArray = new ArrayList<>();
+        for (String s : getFormattedList()) {
+            String[] unitInRecordArray = s.split(DOUBLE_SLASH + CHARCTER_TO_ADD);
+            List<Object> objArray = new ArrayList<>();
+            for (int i = 0; i < getFile().getRecordSize(); i++) {
+                objArray.add(unitInRecordArray[i]);
+            }
+            eachUnitArray.add(objArray);
+        }
+        return eachUnitArray;
+    }
+
+    @Override
+    public final List<Object> getStrictObjectList() {
+        Set<Object> tempSet = new HashSet<>(getAsObjectList());
+        List<Object> tempList = new ArrayList<>(tempSet);
+        return tempList;
     }
 
     @Override
@@ -84,27 +108,6 @@ public class PipeSeparatorFormat implements FormatStrategy {
     @Override
     public String toString() {
         return "PipeSeparatorFormat{" + "file=" + file + '}';
-    }
-
-    @Override
-    public final List<Object> getAsObjectList() {
-        List<Object> eachUnitArray = new ArrayList<>();
-        for (String s : getFormattedList()) {
-            String[] UnitInRecordArray = s.split("\\|");
-            List<Object> objArray = new ArrayList<>();
-            for (int i = 0; i < getFile().getRecordSize(); i++) {
-                objArray.add(UnitInRecordArray[i]);
-            }
-            eachUnitArray.add(objArray);
-        }
-        return eachUnitArray;
-    }
-
-    @Override
-    public final List<Object> getStrictObjectList() {
-        Set<Object> tempSet = new HashSet<>(getAsObjectList());
-        List<Object> tempList = new ArrayList<>(tempSet);
-        return tempList;
     }
 
 }

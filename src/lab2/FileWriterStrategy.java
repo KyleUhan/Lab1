@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
-package lab1;
+package lab2;
+
+import java.util.Map;
 
 /**
  *
@@ -13,7 +15,9 @@ package lab1;
 public interface FileWriterStrategy {
 
     public abstract void writeToFile(FormatStrategy format);
-
+    
+    public abstract Map<String, Object> getMap(FormatStrategy format);
+  
     public abstract void writeToFileStrict(FormatStrategy format);
     
 }
