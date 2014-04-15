@@ -15,8 +15,6 @@ import java.util.Map;
 public interface FileWriterStrategy {
 
     public abstract void writeToFile(FormatStrategy format);
-    
-    public abstract Map<String, Object> getMap(FormatStrategy format);
   
     public abstract void writeToFileStrict(FormatStrategy format);
     

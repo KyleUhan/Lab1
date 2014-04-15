@@ -6,8 +6,10 @@
 package lab2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -76,6 +78,23 @@ public class PipeSeparatorFormat implements FormatStrategy {
         Set<Object> tempSet = new HashSet<>(getAsObjectList());
         List<Object> tempList = new ArrayList<>(tempSet);
         return tempList;
+    }
+
+    @Override
+    public final Map<String, Object> getMap() {
+        Map<String, Object> m = new HashMap<>();
+        for (int i = 0; i < getAsObjectList().size(); i++) {
+            String[] tempArray = getAsObjectList().get(i).toString().split(DOUBLE_SLASH + ",");
+            for (int e = 0; e < tempArray.length; e++) {
+                tempArray[e] = tempArray[e].replace('[', ' ');
+                tempArray[e] = tempArray[e].replace(']', ' ');
+                tempArray[e] = tempArray[e].trim();
+            }
+            m.put(tempArray[0] + tempArray[1], getAsObjectList().get(i));
+            //for testing purposes
+            System.out.println("key: " + tempArray[0] + tempArray[1] + " Object: " + getAsObjectList().get(i));
+        }
+        return m;
     }
 
     @Override

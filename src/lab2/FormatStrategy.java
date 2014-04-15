@@ -6,6 +6,7 @@
 package lab2;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -18,6 +19,8 @@ public interface FormatStrategy {
     public abstract List<Object> getAsObjectList();
     
     public abstract List<Object> getStrictObjectList();
+    
+    public abstract Map<String, Object> getMap();
     
     public abstract String getCharacterUsed();
 
