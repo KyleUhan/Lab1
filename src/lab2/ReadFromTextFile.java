@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  *
+ * This class converts a file text document into an List of Strings
+ *
  * @author Kyle
  */
 public class ReadFromTextFile implements FileReaderStrategy {

@@ -14,7 +14,7 @@ public class Lab1_StartUp {
     public static void main(String[] args) throws IOException {
 
         FileReaderStrategy frs = new ReadFromTextFile(6);
-        FormatStrategy format = new CSVFormat(frs);
+        FormatStrategy format = new PipeSeparatorFormat(frs);
 
 //      Shows formatted list
         for (String s : format.getFormattedList()) {

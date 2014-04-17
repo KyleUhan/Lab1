@@ -20,6 +20,10 @@ public class Lab2_StartUp {
 
         FileReaderStrategy frs = new ReadFromTextFile(6);
         FormatStrategy format = new PipeSeparatorFormat(frs);
+        
+        for(String s : format.getFormattedList()){
+            System.out.println(s);
+        }
 
 //        Map<String, Object> mailingList = new HashMap<String, Object>();
 //        mailingList.put("KyleUhan", format.getStrictObjectList().get(0));
@@ -51,14 +55,19 @@ public class Lab2_StartUp {
 //        System.out.println(mailingList.get("JohnSmith"));
 //        System.out.println(mailingList.get("TommyTwoTone"));
 //        System.out.println(mailingList.get("JohnSmith"));
+        
+        System.out.println("");
+        
         Map<String, Object> map = new HashMap<>(format.getMap());
         System.out.println("Map size: " + map.size());
         System.out.println("Keys in map: " + map.keySet());
-
-        String key = "KyleUhan";
-        System.out.println(map.get(key));
-        key = "JaneSmith";
-        System.out.println(map.get(key));
+        
+        
+//
+//        String key = "KyleUhan";
+//        System.out.println(map.get(key));
+//        key = "JaneSmith";
+//        System.out.println(map.get(key));
 
     }
 }

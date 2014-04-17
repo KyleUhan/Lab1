@@ -32,7 +32,7 @@ public class CSVFormat implements FormatStrategy {
     }
 
     @Override
-    public List<String> getFormattedList() {
+    public final List<String> getFormattedList() {
         List<String> formattedList = new ArrayList<>();
         int count = ZERO_VALUE;
         int recordBreakNum;
@@ -49,38 +49,6 @@ public class CSVFormat implements FormatStrategy {
         }
 
         return formattedList;
-    }
-
-    @Override
-    public String getCharacterUsed() {
-        return CHARCTER_TO_ADD;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.file);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final CSVFormat other = (CSVFormat) obj;
-        if (!Objects.equals(this.file, other.file)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "CommaSeparatorFormat{" + "file=" + file + '}';
     }
 
     @Override
@@ -107,18 +75,50 @@ public class CSVFormat implements FormatStrategy {
     @Override
     public final Map<String, Object> getMap() {
         Map<String, Object> m = new HashMap<>();
-        for (int i = 0; i < getAsObjectList().size(); i++) {
-            String[] tempArray = getAsObjectList().get(i).toString().split(DOUBLE_SLASH + ",");
+        for (int i = 0; i < getStrictObjectList().size(); i++) {
+            String[] tempArray = getStrictObjectList().get(i).toString().split(DOUBLE_SLASH + ",");
             for (int e = 0; e < tempArray.length; e++) {
                 tempArray[e] = tempArray[e].replace('[', ' ');
                 tempArray[e] = tempArray[e].replace(']', ' ');
                 tempArray[e] = tempArray[e].trim();
             }
-            m.put(tempArray[0] + tempArray[1], getAsObjectList().get(i));
+            m.put(tempArray[0] + tempArray[1], getStrictObjectList().get(i));
             //for testing purposes
-            System.out.println("key: " + tempArray[0] + tempArray[1] + " Object: " + getAsObjectList().get(i));
+            System.out.println("key: " + tempArray[0] + tempArray[1] + " Object: " + getStrictObjectList().get(i));
         }
         return m;
+    }
+
+    @Override
+    public final String getCharacterUsed() {
+        return CHARCTER_TO_ADD;
+    }
+
+    @Override
+    public final int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.file);
+        return hash;
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CSVFormat other = (CSVFormat) obj;
+        if (!Objects.equals(this.file, other.file)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public final String toString() {
+        return "CommaSeparatorFormat{" + "file=" + file + '}';
     }
 
 }

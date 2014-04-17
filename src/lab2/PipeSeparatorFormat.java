@@ -39,6 +39,11 @@ public class PipeSeparatorFormat implements FormatStrategy {
         this.file = file;
     }
 
+    /**
+     * Transfers File Content List into a new properly formatted String List
+     * 
+     * @return formatted string List
+     */
     @Override
     public List<String> getFormattedList() {
         List<String> formattedList = new ArrayList<>();
@@ -83,16 +88,16 @@ public class PipeSeparatorFormat implements FormatStrategy {
     @Override
     public final Map<String, Object> getMap() {
         Map<String, Object> m = new HashMap<>();
-        for (int i = 0; i < getAsObjectList().size(); i++) {
-            String[] tempArray = getAsObjectList().get(i).toString().split(DOUBLE_SLASH + ",");
+        for (int i = 0; i < getStrictObjectList().size(); i++) {
+            String[] tempArray = getStrictObjectList().get(i).toString().split(DOUBLE_SLASH + ",");
             for (int e = 0; e < tempArray.length; e++) {
                 tempArray[e] = tempArray[e].replace('[', ' ');
                 tempArray[e] = tempArray[e].replace(']', ' ');
                 tempArray[e] = tempArray[e].trim();
             }
-            m.put(tempArray[0] + tempArray[1], getAsObjectList().get(i));
+            m.put(tempArray[0] + tempArray[1], getStrictObjectList().get(i));
             //for testing purposes
-            System.out.println("key: " + tempArray[0] + tempArray[1] + " Object: " + getAsObjectList().get(i));
+            System.out.println("key: " + tempArray[0] + tempArray[1] + " Object: " + getStrictObjectList().get(i));
         }
         return m;
     }
@@ -120,12 +125,12 @@ public class PipeSeparatorFormat implements FormatStrategy {
     }
 
     @Override
-    public String getCharacterUsed() {
+    public final String getCharacterUsed() {
         return CHARCTER_TO_ADD;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "PipeSeparatorFormat{" + "file=" + file + '}';
     }
 

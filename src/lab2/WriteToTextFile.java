@@ -1,10 +1,10 @@
 package lab2;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
 
 /**
  *
@@ -26,12 +26,17 @@ public class WriteToTextFile implements FileWriterStrategy {
         setFile(new PrintWriter(new BufferedWriter(new FileWriter(DEFAULT_TEXT_NAME, isAppend()))));
     }
 
-    public WriteToTextFile(final String file) throws IOException {
+    public WriteToTextFile(String file) throws IOException {
+        char sysSep = File.separatorChar;
+        String sep = (String)(sysSep +""+ sysSep);
+        file = file.replaceAll("\\\\",sep+sep);
+        file = file.replace('@', sysSep);
+        System.out.println(file);
         setAppend(true);
         setFile(new PrintWriter(new BufferedWriter(new FileWriter(file, isAppend()))));
     }
 
-    public WriteToTextFile(final String file, final boolean append) throws IOException {
+    public WriteToTextFile(String file, final boolean append) throws IOException {
         setAppend(append);
         setFile(new PrintWriter(new BufferedWriter(new FileWriter(file, isAppend()))));
     }
@@ -80,4 +85,8 @@ public class WriteToTextFile implements FileWriterStrategy {
         getFile().close();
     }
 
+    public static void main(String[] args) throws IOException {
+        WriteToTextFile t = new WriteToTextFile("C:\\users@user@anotherUser@newfile.txt");
+    }
+    
 }
